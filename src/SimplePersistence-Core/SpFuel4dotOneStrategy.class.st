@@ -14,8 +14,15 @@ SpFuel4dotOneStrategy class >> isActive [
 ]
 
 { #category : #accessing }
+SpFuel4dotOneStrategy >> log: aMessage [
+    Transcript show: aMessage; cr.
+    Halt now.
+]
+
+{ #category : #accessing }
 SpFuel4dotOneStrategy >> materializeFrom: aFileReference [
 	| materialization |
+	self log: 'Materializing objects from ' , aFileReference fullName.
 	materialization := FLMaterializer new
 			filePath: aFileReference fullName;
 			migrateClassNamed: #MpAddressBook

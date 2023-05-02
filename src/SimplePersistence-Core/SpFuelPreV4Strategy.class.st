@@ -20,11 +20,24 @@ SpFuelPreV4Strategy class >> isActive [
 { #category : #protocol }
 SpFuelPreV4Strategy >> materializeFrom: aFileReference [
 
-	^ FLMaterializer materializeFromFileNamed: aFileReference fullName.
+	| root |
+	root := FLMaterializer materializeFromFileNamed: aFileReference fullName.
+	
+	^ SpBackup new
+		spData: root;
+		yourself
 ]
 
 { #category : #protocol }
-SpFuelPreV4Strategy >> serialize: anObject withMetadata: aDictionary to: aFileReference [
+SpFuelPreV4Strategy >> materializeHeaderFrom: aFileReference [
 
-	FLSerializer serialize: anObject toFileNamed: aFileReference fullName.
+	^ Dictionary new
+]
+
+{ #category : #protocol }
+SpFuelPreV4Strategy >> serialize: anSpBackup to: aFileReference [
+
+	FLSerializer 
+		serialize: anSpBackup spData 
+		toFileNamed: aFileReference fullName.
 ]

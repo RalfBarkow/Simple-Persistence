@@ -1,6 +1,9 @@
 Class {
 	#name : #SpFuel4dotOneStrategy,
 	#superclass : #SpFuel4Strategy,
+	#instVars : [
+		'additionalObjects'
+	],
 	#category : #'SimplePersistence-Core-Core'
 }
 
@@ -14,38 +17,8 @@ SpFuel4dotOneStrategy class >> isActive [
 ]
 
 { #category : #accessing }
-SpFuel4dotOneStrategy >> log: aMessage [
-    Transcript show: aMessage; cr.
-    Halt now.
-]
-
-{ #category : #accessing }
-SpFuel4dotOneStrategy >> materializeFrom: aFileReference [
-	| materialization |
-	self log: 'Materializing objects from ' , aFileReference fullName.
-	materialization := FLMaterializer new
-			filePath: aFileReference fullName;
-			migrateClassNamed: #MpAddressBook
-				variables: {'contacts' -> 'privateContacts'} asDictionary;
-			migrateClassNamed: #MpEntityCollection
-				variables: {'contacts' -> 'privateContacts'} asDictionary;
-			materialize.
-
-	^ materialization root
-]
-
-{ #category : #accessing }
 SpFuel4dotOneStrategy >> new: anFlClass withFile: aFileReference [
 	^ anFlClass new
 		filePath: aFileReference fullName;
 		yourself.
-]
-
-{ #category : #protocol }
-SpFuel4dotOneStrategy >> serialize: anObject to: aFileReference [
-
-	FLSerializer new
-		object: anObject;
-		filePath: aFileReference fullName;
-		serialize.
 ]

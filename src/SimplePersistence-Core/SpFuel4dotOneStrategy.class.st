@@ -15,12 +15,15 @@ SpFuel4dotOneStrategy class >> isActive [
 
 { #category : #protocol }
 SpFuel4dotOneStrategy >> materializeFrom: aFileReference [
-
 	| materialization |
 	materialization := FLMaterializer new
-		filePath: aFileReference fullName;
-		materialize.
-		
+			filePath: aFileReference fullName;
+			migrateClassNamed: #MpAddressBook
+				variables: {'contacts' -> 'privateContacts'} asDictionary;
+			migrateClassNamed: #MpEntityCollection
+				variables: {'contacts' -> 'privateContacts'} asDictionary;
+			materialize.
+
 	^ materialization root
 ]
 

@@ -13,7 +13,7 @@ SpFuel4dotOneStrategy class >> isActive [
 	^ currentFuel major > 4 or: [ currentFuel major = 4 and: [ currentFuel minor >= 1 ] ]
 ]
 
-{ #category : #protocol }
+{ #category : #accessing }
 SpFuel4dotOneStrategy >> materializeFrom: aFileReference [
 	| materialization |
 	materialization := FLMaterializer new
